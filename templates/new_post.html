@@ -14,6 +14,10 @@
                 </td>
             </tr>
             <tr>
+                <td class='error'>{{title_error}}
+                </td>
+            </tr>
+            <tr>
                 <td><label for="blog_body">Blog body:</label>
                 </td>
             </tr>
@@ -22,8 +26,12 @@
                     <textarea name="blog_body" type="text" rows='10' cols='31'>{{blog_body}}</textarea>
                 </td>
             </tr>
+            <tr>
+                <td class='error'>{{body_error}}
+                </td>
+            </tr>
         </table>
-        <input type="submit" value="Submit" >
+        <input type="submit" value="Add entry" >
     </form>
 </body>
 {% endblock %}

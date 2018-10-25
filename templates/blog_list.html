@@ -2,8 +2,8 @@
 
 {% block content %}
 <head>
-        <h1>Build a Blog</h1>
-    </head>
+    <h1>Build a Blog</h1>
+</head>
     
     <body>
         {% if posts|length == 0 %}
@@ -13,12 +13,11 @@
         
         <ul>
             {% for post in posts %}
-            <li>{{post.blog_title}}</li>
-                <ul>
-                    <li type='none'>- {{post.blog_body}}</li>
-                </ul>
-            {% endfor %}
+            <li type='none'><h2>{{post.blog_title}}</h2></li>
+            <li type='none'>{{post.blog_body}}</li>
         </ul>
+        <hr />
+            {% endfor %}
         
         {% endif %}
     

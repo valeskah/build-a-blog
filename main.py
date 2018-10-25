@@ -27,22 +27,28 @@ def new_post():
 
 @app.route('/', methods = ['POST', 'GET'])
 def index():
+    title_error = ''
+    body_error = ''
 
     if request.method == 'POST':
         blog_title = request.form['blog_title']
         blog_body = request.form['blog_body']
+        errors = 0
 
         if blog_title == '':
-            flash('Cannot leave fields empty')
-            return render_template('new_post.html', blog_body=blog_body)
-
+            title_error = "Please fill in title"
+            errors = errors + 1
         if blog_body == '':
-            flash('Cannot leave fields empty')
-            return render_template('new_post.html', blog_title=blog_title)
+            body_error = "Please fill in body"
+            errors = errors + 1
+        
+        if errors > 0:
+            return render_template('new_post.html', blog_title=blog_title, blog_body=blog_body, title_error=title_error, body_error=body_error)
 
-        blog_post = Blog_post(blog_title, blog_body)
-        db.session.add(blog_post)
-        db.session.commit()
+        else:
+            blog_post = Blog_post(blog_title, blog_body)
+            db.session.add(blog_post)
+            db.session.commit()
             
     posts = Blog_post.query.all()
     return render_template('blog_list.html', posts=posts)
