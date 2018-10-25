@@ -5,9 +5,18 @@
     <a href='/'>Home</a>
     <a href='/new_post'>Add a New Entry</a>
 </nav>
+<body>
 
-{% block content %}
-{% endblock %}
+    {% with messages = get_flashed_messages() %}
+        <ul>
+        {% for message in messages %}
+            <li>{{message}}</li>
+        {% endfor %}
+        </ul>
+    {% endwith %}
+
+    {% block content %}
+    {% endblock %}
 
 </body>
 </html>
