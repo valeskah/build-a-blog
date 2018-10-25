@@ -10,15 +10,12 @@
         <p>No Blog Posts Yet</p>
     
         {% else %}
-        
-        <ul>
-            {% for post in posts %}
-            <li type='none'><h2>{{post.blog_title}}</h2></li>
-            <li type='none'>{{post.blog_body}}</li>
-        </ul>
+        {% for post in posts %}
+        <h2><a href='/blog?id={{post.id}}' >{{post.blog_title}}</a></h2>
+        {{post.blog_body}}
         <hr />
-            {% endfor %}
-        
+
+        {% endfor %}
         {% endif %}
     
 {% endblock %}

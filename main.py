@@ -23,7 +23,7 @@ class Blog_post(db.Model):
 def new_post():
 
     return render_template('new_post.html')
-
+    
 
 @app.route('/', methods = ['POST', 'GET'])
 def index():
@@ -49,9 +49,16 @@ def index():
             blog_post = Blog_post(blog_title, blog_body)
             db.session.add(blog_post)
             db.session.commit()
+            return render_template('blog_page.html', blog_title=blog_title, blog_body=blog_body, id=id)
             
     posts = Blog_post.query.all()
     return render_template('blog_list.html', posts=posts)
+
+@app.route('/blog', methods=['GET'])
+def blog_page():
+
+    return render_template('blog_page.html')
+
 
 if __name__ == '__main__':
     app.run()
