@@ -27,6 +27,13 @@ def new_post():
 
 @app.route('/', methods = ['POST', 'GET'])
 def index():
+            
+    posts = Blog_post.query.all()
+    return render_template('blog_list.html', posts=posts)
+
+@app.route('/blog', methods=['GET', 'POST'])
+def blog_page():
+
     title_error = ''
     body_error = ''
 
@@ -49,16 +56,15 @@ def index():
             blog_post = Blog_post(blog_title, blog_body)
             db.session.add(blog_post)
             db.session.commit()
-            return render_template('blog_page.html', blog_title=blog_title, blog_body=blog_body, id=id)
-            
-    posts = Blog_post.query.all()
-    return render_template('blog_list.html', posts=posts)
+            blog_id = blog_post.id
 
-@app.route('/blog', methods=['GET'])
-def blog_page():
+            return redirect('/blog?id={0}'.format(blog_id))
 
-    return render_template('blog_page.html')
+    else:
+        blog_id = request.args.get('id')
+        blog_post = Blog_post.query.get(blog_id)
 
+        return render_template('blog_page.html', blog_post=blog_post)
 
 if __name__ == '__main__':
     app.run()
